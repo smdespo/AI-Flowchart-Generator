@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mermaid Flowchart</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default'
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const backendOutput = localStorage.getItem("backendOutput");
+            const outputdiv = document.getElementById("mermaid");
+            
+            if (backendOutput && backendOutput.trim()) {
+                outputdiv.textContent = backendOutput;
+                
+                setTimeout(() => {
+                    mermaid.run({ 
+                        nodes: [outputdiv],
+                        suppressErrors: false
+                    });
+                }, 100);
+            } else {
+                outputdiv.innerHTML = "<p>No flowchart available. Please go back and generate one.</p>";
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #mermaid {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generated Flowchart</h1>
+        <div id="mermaid">Loading flowchart...</div>
+        <button class="back-btn" onclick="window.location.href='index.html'">Generate Another Flowchart</button>
+    </div>
+</body>
+</html>
